@@ -13,3 +13,14 @@ _bot_left.y_vel = -1;
 var _bot_right = instance_create_layer(right, bottom, "Decorations", o_Fragment);
 _bot_right.x_vel = 1;
 _bot_right.y_vel = -1;
+
+with(o_Life) {
+	if(current_block == other.id) {
+		current_block = noone;
+		fsm.transition(id, id.actions.fall);
+	}
+}
+
+with(o_ScoreDisplay) {
+	score += 5;	
+}

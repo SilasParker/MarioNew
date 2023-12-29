@@ -1,5 +1,6 @@
 activated = false;
 rise_frames = 34;
+pre_rise_frames = 21;
 original_y = y;
 x_vel = 0;
 y_vel = 0;

@@ -15,3 +15,5 @@ sc_handle_collision();
 if(x > camera_get_view_x(view_camera[0]) + 128) {
 	camera_set_view_pos(view_camera[0], x - 128, camera_get_view_y(view_camera[0]));	
 }
+
+LOG(fsm.cur_action);

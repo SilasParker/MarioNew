@@ -1,0 +1,1 @@
+sc_create_score(10, 0);

@@ -54,19 +54,26 @@ function sc_handle_collision() {
 			if((other.initial_y - other.height_offset[other.m_health]) > bottom && (other.y - other.height_offset[other.m_health]) <= bottom) {
 				other.y_vel = 0;	
 				if(id.object_index == o_BrickBlock) {
-					instance_destroy(id);
-					with(o_BlockCoin) {
-						if(other.x == x && other.y == y) {
-							activated = true;
+					if(other.m_health > 1) {
+						instance_destroy(id);
+						with(o_BlockCoin) {
+							if(other.x == x && other.y == y) {
+								activated = true;
+							}
 						}
+					} else {
+						y = original_y;
+						bumped = true;	
 					}
 				}
 				else if(id.object_index == o_BlockQuestion) {
+					if(!activated) bumped = true;
 					sprite_index = spr_question_hit;
+					activated = true;
 					with(o_Shroom) {
 						if(other.x == x && other.y == y - 8) {
 							activated = true;	
-							fsm.transition(id, id.actions.life_rise);
+							fsm.transition(id, id.actions.life_pre_rise_wait);
 						}
 					}
 					with(o_BlockCoin) {
@@ -83,7 +90,7 @@ function sc_handle_collision() {
 	with(o_Shroom) {
 		if(other.x > x - x_offset && other.x < x + x_offset) {
 			if(other.y <= y && other.y > y - y_offset) {
-				with(o_Score) {
+				with(o_ScoreDisplay) {
 					score += 3;	
 				}
 				instance_destroy(id);
@@ -95,7 +102,7 @@ function sc_handle_collision() {
 	//bounce on goomba
 	with(o_Goomba) {
 		if(other.x > x - x_offset && other.x < x + x_offset && alive) {
-			if(floor(other.y) == y - y_offset) { 
+			if(other.initial_y <= y - y_offset && other.y >= y - y_offset) {	
 				fsm.transition(id, id.actions.life_squash);
 				other.fsm.transition(other.id, other.id.actions.jump);
 			}

@@ -315,6 +315,7 @@ function AsLifeRise() : ActionState() constructor {
 	init = function(_p) {
 		_p.state = STATES.LIFE_RISE;
 		_p.y_vel = -0.5;
+		_p.visible = true;
 	}
 	
 	step = function(_p) {
@@ -331,6 +332,27 @@ function AsLifeRise() : ActionState() constructor {
 	
 	_exit = function(_p) {
 		//_p.current_block = instance_position(x, y - 8, o_BlockParent);	
+	}
+	
+}
+
+function AsLifePreRiseWait() : ActionState() constructor {
+	
+	init = function(_p) {
+		_p.state =  STATES.LIFE_PRE_RISE_WAIT;
+		_p.visible = false;
+	}
+	
+	step = function(_p) {
+		_p.pre_rise_frames--;
+	}
+	
+	interrupt = function(_p) {
+		if(_p.pre_rise_frames == 0) {
+			_p.fsm.transition(_p, _p.actions.life_rise);
+			return true;
+		}
+		return false;
 	}
 	
 }

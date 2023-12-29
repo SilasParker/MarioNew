@@ -1,5 +1,6 @@
 if(activated) {
-	with(o_Score) {
+	sprite_index = spr_coin_get;
+	with(o_ScoreDisplay) {
 		score++;	
 	}
 	with(o_CoinDisplay) {
@@ -15,15 +16,6 @@ if(moving) {
 	death_frames--;
 	y += y_vel;
 	if(death_frames == 0) {
-	display_score = true;
-	moving = false;
-	sprite_index = spr_100;
-}
-}
-
-if(display_score) {
-	score_frames--;
-	if(score_frames == 0) {
-		instance_destroy(id);	
+		instance_destroy(id);
 	}
 }

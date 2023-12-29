@@ -14,7 +14,8 @@ enum STATES {
 	LIFE_FALL,
 	LIFE_LAND,
 	LIFE_DIE,
-	LIFE_SQUASH
+	LIFE_SQUASH,
+	LIFE_PRE_RISE_WAIT
 }
 
 #macro LOG show_debug_message

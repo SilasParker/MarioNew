@@ -29,10 +29,7 @@
   "physicsStartAwake": true,
   "properties": [],
   "solid": false,
-  "spriteId": {
-    "name": "spr_coin_get",
-    "path": "sprites/spr_coin_get/spr_coin_get.yy",
-  },
+  "spriteId": null,
   "spriteMaskId": null,
   "visible": true,
 }
