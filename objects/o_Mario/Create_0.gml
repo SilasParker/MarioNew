@@ -38,6 +38,7 @@ height_offset = [0, 16, 32, 32];
 visual_left = x - 8; //probably needs updating for proper collision
 visual_right = x + 8;
 m_health = 1;
+visual_top = y - height_offset[m_health];
 die_frames = 60;
 died = false;
 idle_sprites = [spr_die, spr_idle, spr_big_idle];
@@ -45,6 +46,7 @@ run_sprites = [spr_die, spr_run, spr_big_run];
 jump_sprites = [spr_die, spr_jump, spr_big_jump];
 debug_name = "mario";
 coins = 0;
+bumped_last_frame = false;
 
 x_vel = 0;
 y_vel = 0;

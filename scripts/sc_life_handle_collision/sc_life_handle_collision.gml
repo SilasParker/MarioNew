@@ -36,12 +36,12 @@ function sc_life_handle_collision(){
 	var _top_y = y - y_offset;
 	with(o_BlockParent) {
 		if((_top_y >= top && _top_y < bottom) || (other.y > top && other.y <= bottom)) {
-			if(other.initial_x < left && other.x + 8 >= left) {
+			if((other.initial_x < left && other.x + 8 >= left) || (other.initial_x < left && other.x >= left)) {
 				other.x_vel = other.x_vel * -1;
-				other.x = left - 0.1;
-			} else if(other.initial_x > right && other.x - 8 <= right) {
+				other.x = left - 8.1;
+			} else if((other.initial_x > right && other.x - 8 <= right) || (other.initial_x > right && other.x <= right)) {
 				other.x_vel = other.x_vel * -1;
-				other.x = right + 0.1;
+				other.x = right + 8.1;
 			}
 		}
 	}

@@ -128,7 +128,6 @@ function AsJump() : AsAirbourne() constructor {
 function AsFall() : AsAirbourne() constructor {
 	
 	init = function(_p) {
-		LOG("FAAAALLING");
 		_p.state = STATES.FALL;
 		_p.image_speed = 0;
 		_p.current_block = noone;
@@ -140,7 +139,6 @@ function AsFall() : AsAirbourne() constructor {
 		if(keyboard_check(vk_left)) {
 			_p.x_vel = (_p.x_vel - 0.25) * 0.9;	
 		} else if(keyboard_check(vk_right)) {
-			LOG("GO RIGHT");
 			_p.x_vel = (_p.x_vel + 0.25) * 0.9;	
 		}
 	}
@@ -156,6 +154,7 @@ function AsLand() : ActionState() constructor {
 	init = function(_p) {
 		_p.state = STATES.LAND;
 		_p.y_vel = 0;
+		_p.landed = true;
 	}
 	
 	interrupt = function(_p) {
@@ -293,7 +292,6 @@ function AsShrink() : ActionState() constructor {
 function AsLifePause() : ActionState() constructor {
 
 	init = function(_p) {
-		_p.previous_state = _p.state;
 		_p.state = STATES.LIFE_PAUSE;
 		_p.temp_x_vel = _p.x_vel;
 		_p.temp_y_vel = _p.y_vel;
