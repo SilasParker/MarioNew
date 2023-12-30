@@ -10,6 +10,7 @@ x_offset = 8;
 previous_state = noone;
 temp_x_vel = 0;
 temp_y_vel = 0;
+bounced = false;
 
 with(o_BlockParent) {
 	if(x == other.x && y == other.y - 8) {

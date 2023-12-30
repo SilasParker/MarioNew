@@ -8,4 +8,3 @@ if(activated) {
 
 event_inherited();
 
-

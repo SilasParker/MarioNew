@@ -7,7 +7,8 @@ actions = {
 	life_eaten: new AsLifeEaten(),
 	life_fall: new AsLifeFall(),
 	life_land: new AsLifeLand(),	
-	life_pre_rise_wait: new AsLifePreRiseWait()
+	life_pre_rise_wait: new AsLifePreRiseWait(),
+	life_bounced: new AsLifeBounced()
 }
 
 debug_name = "shroom";

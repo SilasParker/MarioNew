@@ -15,7 +15,8 @@ enum STATES {
 	LIFE_LAND,
 	LIFE_DIE,
 	LIFE_SQUASH,
-	LIFE_PRE_RISE_WAIT
+	LIFE_PRE_RISE_WAIT,
+	LIFE_BOUNCED
 }
 
 #macro LOG show_debug_message
@@ -48,6 +49,8 @@ jump_sprites = [spr_die, spr_jump, spr_big_jump];
 debug_name = "mario";
 coins = 0;
 bumped_last_frame = false;
+holding_jump = false;
+holding_jump_frames = 0;
 
 x_vel = 0;
 y_vel = 0;

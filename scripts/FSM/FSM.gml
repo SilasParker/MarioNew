@@ -71,10 +71,10 @@ function AsRun() : ActionState() constructor {
 	step = function(_p) {
 		if(keyboard_check(vk_left)) {
 			_p.image_xscale = -1;
-			_p.x_vel = (_p.x_vel - 0.5) * 0.9;
+			_p.x_vel = (_p.x_vel - 0.3) * 0.9;
 		} else if(keyboard_check(vk_right)) {
 			_p.image_xscale = 1;
-			_p.x_vel = (_p.x_vel + 0.5) * 0.9;
+			_p.x_vel = (_p.x_vel + 0.3) * 0.9;
 		}
 	}
 	
@@ -97,9 +97,9 @@ function AsAirbourne() : ActionState() constructor {
 	step = function(_p) {
 		_p.y_vel += 0.1;
 		if(keyboard_check(vk_left)) {
-			_p.x_vel = (_p.x_vel - 0.25) * 0.9;	
+			_p.x_vel = (_p.x_vel - 0.15) * 0.9;	
 		} else if(keyboard_check(vk_right)) {
-			_p.x_vel = (_p.x_vel + 0.25) * 0.9;	
+			_p.x_vel = (_p.x_vel + 0.15) * 0.9;	
 		}
 	}
 	
@@ -109,10 +109,32 @@ function AsJump() : AsAirbourne() constructor {
 	
 	init = function(_p) {
 		_p.state = STATES.JUMP;
-		_p.y_vel = -4;
+		_p.y_vel = -1.5;
 		_p.sprite_index = _p.jump_sprites[_p.m_health];
 		_p.current_block = noone;
 		_p.landed = false;
+		_p.holding_jump = true;
+		_p.holding_jump_frames = 0;
+	}
+	
+	step = function(_p) {
+		if(!keyboard_check(vk_up)) {
+			_p.holding_jump = false;
+		}
+		if(_p.holding_jump) {
+			_p.y_vel -= 0.15
+			_p.holding_jump_frames++;
+			if(_p.holding_jump_frames == 10) _p.holding_jump = false;
+		} else {
+			if(_p.y_vel < 2) _p.y_vel += 0.1;
+		}
+		
+		if(keyboard_check(vk_left)) {
+			_p.x_vel = (_p.x_vel - 0.25) * 0.9;	
+		} else if(keyboard_check(vk_right)) {
+			_p.x_vel = (_p.x_vel + 0.25) * 0.9;	
+		}
+		
 	}
 	
 	interrupt = function(_p) {
@@ -330,10 +352,6 @@ function AsLifeRise() : ActionState() constructor {
 		return false;
 	}
 	
-	_exit = function(_p) {
-		//_p.current_block = instance_position(x, y - 8, o_BlockParent);	
-	}
-	
 }
 
 function AsLifePreRiseWait() : ActionState() constructor {
@@ -377,6 +395,31 @@ function AsLifeFall() : ActionState() constructor {
 	
 	step = function(_p) {
 		if(_p.y_vel < 2) _p.y_vel += 0.1;	
+	}
+	
+}
+
+function AsLifeBounced() : ActionState() constructor {
+	
+	init = function(_p) {
+		_p.state = STATES.LIFE_BOUNCED;
+		_p.y_vel = -2;
+		_p.x_vel = _p.x_vel * -1;
+		_p.bounced = true;
+	}
+	
+	step = function(_p) {
+		if(_p.y_vel < 2) _p.y_vel += 0.1;
+		LOG(_p.y_vel);
+	}
+	
+	interrupt = function(_p) {
+		if(_p.y_vel >= 0) {
+			LOG("BOUNCE DONE");
+			_p.bounced = false;
+			_p.fsm.transition(_p, _p.actions.life_fall);
+			return true;
+		}
 	}
 	
 }
