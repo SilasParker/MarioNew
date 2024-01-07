@@ -13,7 +13,7 @@ squash_frames = 30;
 alive = true;
 debug_name = "goomba";
 
-fsm = new FSM(actions.life_run);
+fsm = new FSM(actions.life_pause);
 
 
 

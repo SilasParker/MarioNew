@@ -3,6 +3,7 @@
 function sc_create_score(_score_to_add, _coins_to_add){
 	var sprite;
 	switch(_score_to_add) {
+		case 0: sprite = spr_1up_text; break;
 		case 10: sprite = spr_100; break;
 		case 20: sprite = spr_200; break;
 		case 100: sprite = spr_1000; break;

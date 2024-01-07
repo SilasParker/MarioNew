@@ -1,1 +1,1 @@
-sc_create_score(10, 0);
+sc_squash_multiplier();

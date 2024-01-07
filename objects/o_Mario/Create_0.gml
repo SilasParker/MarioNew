@@ -7,6 +7,7 @@ enum STATES {
 	DIE,
 	GROW,
 	SHRINK,
+	GROW_FIRE,
 	LIFE_PAUSE,
 	LIFE_RISE,
 	LIFE_RUN,
@@ -29,7 +30,8 @@ actions = {
 	land: new AsLand(),
 	die: new AsDie(),
 	grow: new AsGrow(),
-	shrink: new AsShrink()
+	shrink: new AsShrink(),
+	grow_fire: new AsGrowFire()
 }
 
 current_block = noone;
@@ -43,14 +45,19 @@ m_health = 1;
 visual_top = y - height_offset[m_health];
 die_frames = 60;
 died = false;
-idle_sprites = [spr_die, spr_idle, spr_big_idle];
-run_sprites = [spr_die, spr_run, spr_big_run];
-jump_sprites = [spr_die, spr_jump, spr_big_jump];
+idle_sprites = [spr_die, spr_idle, spr_big_idle, spr_fire_idle];
+run_sprites = [spr_die, spr_run, spr_big_run, spr_fire_run];
+jump_sprites = [spr_die, spr_jump, spr_big_jump, spr_fire_jump];
 debug_name = "mario";
 coins = 0;
 bumped_last_frame = false;
 holding_jump = false;
 holding_jump_frames = 0;
+enemy_stomped = 0;
+sprite_frame = noone;
+last_sprite = noone;
+fire_sprite_equivalent = noone;
+fire_grow_frames = 0;
 
 x_vel = 0;
 y_vel = 0;

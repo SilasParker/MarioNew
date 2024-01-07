@@ -16,6 +16,8 @@ debug_name = "shroom";
 
 fsm = new FSM(actions.life_pause);
 
+visible = false;
+
 
 
 

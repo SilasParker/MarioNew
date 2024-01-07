@@ -39,16 +39,10 @@ function sc_life_handle_collision(){
 			if((other.initial_x < left && other.x + 8 >= left) || (other.initial_x < left && other.x >= left)) {
 				other.x_vel = other.x_vel * -1;
 				other.x = left - 8.1;
-				with(o_Shroom) {
-					LOG("BUMP LEFT");
-				}
 				
 			} else if((other.initial_x > right && other.x - 8 <= right) || (other.initial_x > right && other.x <= right)) {
 				other.x_vel = other.x_vel * -1;
 				other.x = right + 8.1;
-				with(o_Shroom) {
-					LOG("BUMP RIGHT");
-				}
 			}
 		}
 	}

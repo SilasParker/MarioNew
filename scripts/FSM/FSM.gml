@@ -177,6 +177,7 @@ function AsLand() : ActionState() constructor {
 		_p.state = STATES.LAND;
 		_p.y_vel = 0;
 		_p.landed = true;
+		_p.enemy_stomped = 0;
 	}
 	
 	interrupt = function(_p) {
@@ -228,6 +229,79 @@ function AsGrow() : ActionState() constructor {
 	
 	interrupt = function(_p) {
 		if(_p.image_index == 32) {
+			switch(_p.previous_state) {
+				case STATES.IDLE: _p.fsm.transition(_p, _p.actions.idle); break;
+				case STATES.RUN: _p.fsm.transition(_p, _p.actions.run);	break;
+				case STATES.JUMP: _p.fsm.transition(_p, _p.actions.jump); break;
+				case STATES.FALL: _p.fsm.transition(_p, _p.actions.fall); break;
+				case STATES.LAND: _p.fsm.transition(_p, _p.actions.land); break;
+			}
+			_p.x_vel = _p.temp_x_vel;
+			_p.y_vel = _p.temp_y_vel;
+			with(o_Life) {
+				switch(previous_state) {
+					case STATES.LIFE_RUN: fsm.transition(id, id.actions.life_run); break;
+					case STATES.LIFE_RISE: fsm.transition(id, id.actions.life_rise); break;
+					case STATES.LIFE_FALL: fsm.transition(id, id.actions.life_fall); break;
+					case STATES.LIFE_LAND: fsm.transition(id, id.actions.life_land); break;
+				}
+				x_vel = temp_x_vel;
+				y_vel = temp_y_vel;
+				image_speed = 1;
+			}
+			return true;
+		}
+		return false;
+	}
+	
+}
+
+function AsGrowFire() : ActionState () constructor {
+	
+	init = function(_p) {
+		_p.previous_state = _p.state;
+		switch(_p.sprite_index) {
+			case(spr_idle):
+			case(spr_big_idle):
+				_p.fire_sprite_equivalent = spr_fire_idle;
+				break;
+			case(spr_run):
+			case(spr_big_run):
+				_p.fire_sprite_equivalent = spr_fire_run;
+				break;
+			case(spr_jump):
+			case(spr_big_jump):
+				_p.fire_sprite_equivalent = spr_fire_jump;
+				break;
+		}
+		_p.state = STATES.GROW_FIRE;
+		_p.temp_x_vel = _p.x_vel;
+		_p.temp_y_vel = _p.y_vel;
+		_p.x_vel = 0;
+		_p.y_vel = 0;
+		_p.m_health = 3;
+		_p.sprite_frame = _p.image_index;
+		_p.last_sprite = _p.sprite_index;
+		_p.fire_grow_frames = 64;
+		with(o_Life) {
+			temp_x_vel = x_vel;
+			temp_y_vel = y_vel;
+			fsm.transition(id, id.actions.life_pause);	
+		}
+	}
+	
+	step = function(_p) {
+		if(_p.sprite_index == _p.last_sprite) {
+			_p.sprite_index	= _p.fire_sprite_equivalent;
+		} else {
+			_p.sprite_index = _p.last_sprite;
+		}
+		_p.image_index = _p.sprite_frame;
+		_p.fire_grow_frames--;
+	}
+	
+	interrupt = function(_p) {
+		if(_p.fire_grow_frames == 0) {
 			switch(_p.previous_state) {
 				case STATES.IDLE: _p.fsm.transition(_p, _p.actions.idle); break;
 				case STATES.RUN: _p.fsm.transition(_p, _p.actions.run);	break;
@@ -323,9 +397,16 @@ function AsLifePause() : ActionState() constructor {
 	}
 	
 	interrupt = function(_p) {
-		if(_p.activated && _p.rise_frames != 0) {
-			_p.fsm.transition(_p, _p.actions.life_rise);
-			return true;
+		if(object_is_ancestor(_p.object_index, o_Enemy)) {
+			if(_p.activated) {
+				_p.fsm.transition(_p, _p.actions.life_run);
+				return true;
+			}
+		} else {
+			if(_p.activated && _p.rise_frames != 0) {
+				_p.fsm.transition(_p, _p.actions.life_rise);
+				return true;
+			}	
 		}
 		return false;
 	}
@@ -346,6 +427,7 @@ function AsLifeRise() : ActionState() constructor {
 	
 	interrupt = function(_p) {
 		if(_p.rise_frames == 0) {
+			LOG("rise");
 			_p.fsm.transition(_p, _p.actions.life_run);
 			return true;
 		}
@@ -379,7 +461,8 @@ function AsLifeRun() : ActionState() constructor {
 	
 	init = function(_p) {
 		_p.state = STATES.LIFE_RUN;
-		if(_p.x_vel == 0) _p.x_vel = 1;
+		if(_p.x_vel == 0 && _p.object_index != o_Flower) _p.x_vel = 1;
+		if(object_is_ancestor(_p.object_index, o_Enemy)) _p.x_vel = -1;
 		_p.y_vel = 0;
 	}
 	
@@ -410,12 +493,10 @@ function AsLifeBounced() : ActionState() constructor {
 	
 	step = function(_p) {
 		if(_p.y_vel < 2) _p.y_vel += 0.1;
-		LOG(_p.y_vel);
 	}
 	
 	interrupt = function(_p) {
 		if(_p.y_vel >= 0) {
-			LOG("BOUNCE DONE");
 			_p.bounced = false;
 			_p.fsm.transition(_p, _p.actions.life_fall);
 			return true;
@@ -440,6 +521,7 @@ function AsLifeLand() : ActionState() constructor {
 	}
 	
 	interrupt = function(_p) {
+		LOG("landed");
 		_p.fsm.transition(_p, _p.actions.life_run);
 		return true;
 	}

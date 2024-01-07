@@ -20,10 +20,12 @@ function sc_handle_collision() {
 	//land on platform
 	if(current_block == noone && !died) {
 		with(o_BlockParent) {
-			if((other.x + 6 >= left && other.x - 6 <= right) && (other.initial_y <= top && other.y >= top)) {
-				other.current_block = id;
-				other.y = top;
-				other.fsm.transition(other.id, other.id.actions.land);
+			if(id.object_index != o_InvisibleQuestionBlock || (id.object_index == o_InvisibleQuestionBlock && activated)) {
+				if((other.x + 6 >= left && other.x - 6 <= right) && (other.initial_y <= top && other.y >= top)) {
+					other.current_block = id;
+					other.y = top;
+					other.fsm.transition(other.id, other.id.actions.land);
+				}
 			}
 		}
 	}
@@ -31,13 +33,15 @@ function sc_handle_collision() {
 	//running into wall
 	var _top_y = y - height_offset[m_health];
 	with(o_BlockParent) {
-		if(((_top_y >= top && _top_y < bottom) || (other.y > top && other.y <= bottom) || (other.y - (other.height_offset[other.m_health] * 0.5) > top && other.y - (other.height_offset[other.m_health] * 0.5) <= bottom))) {
-			if((other.initial_x + 8 < left && other.x + 8 >= left) || (other.initial_x < left && other.x >= left)) {
-				other.x_vel = 0;
-				other.x = left - 8.1;
-			} else if((other.initial_x - 8 > right && other.x - 8 <= right) || (other.initial_x > right && other.x <= right)) {
-				other.x_vel = 0;
-				other.x = right + 8.1;	
+		if(id.object_index != o_InvisibleQuestionBlock || (id.object_index == o_InvisibleQuestionBlock && activated)) {
+			if(((_top_y >= top && _top_y < bottom) || (other.y > top && other.y <= bottom) || (other.y - (other.height_offset[other.m_health] * 0.5) > top && other.y - (other.height_offset[other.m_health] * 0.5) <= bottom))) {
+				if((other.initial_x + 8 < left && other.x + 8 >= left) || (other.initial_x < left && other.x >= left)) {
+					other.x_vel = 0;
+					other.x = left - 8.1;
+				} else if((other.initial_x - 8 > right && other.x - 8 <= right) || (other.initial_x > right && other.x <= right)) {
+					other.x_vel = 0;
+					other.x = right + 8.1;	
+				}
 			}
 		}
 	}
@@ -66,13 +70,19 @@ function sc_handle_collision() {
 						bumped = true;	
 					}
 				}
-				else if(id.object_index == o_BlockQuestion) {
+				else if(id.object_index == o_BlockQuestion || id.object_index == o_InvisibleQuestionBlock) {
 					if(!activated) bumped = true;
 					sprite_index = spr_question_hit;
 					activated = true;
 					with(o_Shroom) {
 						if(other.x == x && other.y == y - 8) {
 							activated = true;	
+							fsm.transition(id, id.actions.life_pre_rise_wait);
+						}
+					}
+					with(o_Flower) {
+						if(other.x == x && other.y == y - 8) {
+							activated = true;
 							fsm.transition(id, id.actions.life_pre_rise_wait);
 						}
 					}
@@ -86,16 +96,32 @@ function sc_handle_collision() {
 		}
 	} 
 	
-	//collide with life
-	with(o_Shroom) {
+	//collide with grow shroom
+	with(o_GrowShroom) {
 		if(other.x > x - x_offset && other.x < x + x_offset) {
 			if(other.y <= y && other.y > y - y_offset) {
-				with(o_ScoreDisplay) {
-					score += 3;	
-				}
 				instance_destroy(id);
 				other.fsm.transition(other.id, other.id.actions.grow);
 			}
+		}
+	}
+	
+	//collide with 1upshroom
+	with(o_1UPShroom) {
+		if(other.x > x - x_offset && other.x < x + x_offset) {
+			if(other.y <= y && other.y > y - y_offset) {
+				if(activated) instance_destroy(id);	
+			}	
+		}
+	}
+	
+	//collide with flower
+	with(o_Flower) {
+		if(other.x > x - x_offset && other.x < x + x_offset) {
+			if(other.y <= y && other.y > y - y_offset) {
+				instance_destroy(id);	
+				other.fsm.transition(other.id, other.id.actions.grow_fire);
+			}	
 		}
 	}
 	
@@ -105,6 +131,7 @@ function sc_handle_collision() {
 			if(other.initial_y <= y - y_offset && other.y >= y - y_offset) {	
 				fsm.transition(id, id.actions.life_squash);
 				other.fsm.transition(other.id, other.id.actions.jump);
+				other.enemy_stomped += 1;
 			}
 		}
 	}
