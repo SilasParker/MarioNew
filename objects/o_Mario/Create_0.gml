@@ -39,7 +39,7 @@ landed = false;
 initial_x = x;
 initial_y = y;
 height_offset = [0, 16, 32, 32];
-visual_left = x - 8; //probably needs updating for proper collision
+visual_left = x - 8;
 visual_right = x + 8;
 m_health = 1;
 visual_top = y - height_offset[m_health];
@@ -58,6 +58,7 @@ sprite_frame = noone;
 last_sprite = noone;
 fire_sprite_equivalent = noone;
 fire_grow_frames = 0;
+pre_fireball_sprite = noone;
 
 x_vel = 0;
 y_vel = 0;
