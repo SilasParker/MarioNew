@@ -59,7 +59,7 @@
     {"name":"spr_fireball","order":4,"path":"sprites/spr_fireball/spr_fireball.yy",},
     {"name":"spr_3_sm","order":18,"path":"sprites/spr_3_sm/spr_3_sm.yy",},
     {"name":"spr_200","order":20,"path":"sprites/spr_200/spr_200.yy",},
-    {"name":"spr_fireball_explod","order":5,"path":"sprites/spr_fireball_explod/spr_fireball_explod.yy",},
+    {"name":"spr_fireball_explode","order":5,"path":"sprites/spr_fireball_explode/spr_fireball_explode.yy",},
     {"name":"spr_1","order":1,"path":"sprites/spr_1/spr_1.yy",},
     {"name":"spr_fire_idle","order":8,"path":"sprites/spr_fire_idle/spr_fire_idle.yy",},
     {"name":"spr_1up_text","order":22,"path":"sprites/spr_1up_text/spr_1up_text.yy",},

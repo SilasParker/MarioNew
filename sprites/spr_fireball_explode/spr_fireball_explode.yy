@@ -1,7 +1,7 @@
 {
   "resourceType": "GMSprite",
   "resourceVersion": "1.0",
-  "name": "spr_fireball_explod",
+  "name": "spr_fireball_explode",
   "bbox_bottom": 15,
   "bbox_left": 0,
   "bbox_right": 15,
@@ -34,7 +34,7 @@
   "sequence": {
     "resourceType": "GMSequence",
     "resourceVersion": "1.4",
-    "name": "spr_fireball_explod",
+    "name": "spr_fireball_explode",
     "autoRecord": true,
     "backdropHeight": 768,
     "backdropImageOpacity": 0.5,
@@ -56,9 +56,9 @@
     "timeUnits": 1,
     "tracks": [
       {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"1.0","Keyframes":[
-            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"38e07f16-a7d0-48f8-9d72-e57569983edf","path":"sprites/spr_fireball_explod/spr_fireball_explod.yy",},},},"Disabled":false,"id":"81d62507-ffdf-4674-b67b-0027e8478a70","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
-            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"5e28f78b-5df9-42d4-aa5a-95873c189fdb","path":"sprites/spr_fireball_explod/spr_fireball_explod.yy",},},},"Disabled":false,"id":"3ce8d24e-a39c-42a1-b6e8-906c4710c38e","IsCreationKey":false,"Key":1.0,"Length":1.0,"Stretch":false,},
-            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"a92a4e8f-89c6-4e54-a8b7-9164d02be7d5","path":"sprites/spr_fireball_explod/spr_fireball_explod.yy",},},},"Disabled":false,"id":"5e5c6ece-3429-4182-9c9a-306bb689c523","IsCreationKey":false,"Key":2.0,"Length":1.0,"Stretch":false,},
+            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"38e07f16-a7d0-48f8-9d72-e57569983edf","path":"sprites/spr_fireball_explode/spr_fireball_explode.yy",},},},"Disabled":false,"id":"81d62507-ffdf-4674-b67b-0027e8478a70","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
+            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"5e28f78b-5df9-42d4-aa5a-95873c189fdb","path":"sprites/spr_fireball_explode/spr_fireball_explode.yy",},},},"Disabled":false,"id":"3ce8d24e-a39c-42a1-b6e8-906c4710c38e","IsCreationKey":false,"Key":1.0,"Length":1.0,"Stretch":false,},
+            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"a92a4e8f-89c6-4e54-a8b7-9164d02be7d5","path":"sprites/spr_fireball_explode/spr_fireball_explode.yy",},},},"Disabled":false,"id":"5e5c6ece-3429-4182-9c9a-306bb689c523","IsCreationKey":false,"Key":2.0,"Length":1.0,"Stretch":false,},
           ],},"modifiers":[],"spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange": null,

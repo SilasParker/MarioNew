@@ -81,7 +81,7 @@
     {"id":{"name":"spr_shroom","path":"sprites/spr_shroom/spr_shroom.yy",},},
     {"id":{"name":"spr_3_sm","path":"sprites/spr_3_sm/spr_3_sm.yy",},},
     {"id":{"name":"spr_200","path":"sprites/spr_200/spr_200.yy",},},
-    {"id":{"name":"spr_fireball_explod","path":"sprites/spr_fireball_explod/spr_fireball_explod.yy",},},
+    {"id":{"name":"spr_fireball_explode","path":"sprites/spr_fireball_explode/spr_fireball_explode.yy",},},
     {"id":{"name":"spr_1","path":"sprites/spr_1/spr_1.yy",},},
     {"id":{"name":"spr_fire_idle","path":"sprites/spr_fire_idle/spr_fire_idle.yy",},},
     {"id":{"name":"spr_1up_text","path":"sprites/spr_1up_text/spr_1up_text.yy",},},

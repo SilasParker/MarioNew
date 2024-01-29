@@ -7,3 +7,5 @@ with(o_BlockParent) {
 		other.fsm.transition(other.id, other.id.actions.life_bounced);
 	}
 }
+
+if(y >= 280) instance_destroy(id);

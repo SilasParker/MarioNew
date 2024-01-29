@@ -59,6 +59,8 @@ last_sprite = noone;
 fire_sprite_equivalent = noone;
 fire_grow_frames = 0;
 pre_fireball_sprite = noone;
+fireball_cooldown = 10;
+state = noone;
 
 x_vel = 0;
 y_vel = 0;
